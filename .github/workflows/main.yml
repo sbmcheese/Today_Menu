@@ -30,4 +30,4 @@ jobs:
           # GitHub Secrets에 등록한 변수들을 환경변수로 주입
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           TEAMS_WEBHOOK_URL: ${{ secrets.TEAMS_WEBHOOK_URL }}
-        run: main.js
+        run: node main.js
