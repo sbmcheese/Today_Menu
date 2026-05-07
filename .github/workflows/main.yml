@@ -1,0 +1,33 @@
+name: Daily Menu Notifier
+
+on:
+  schedule:
+    # 한국 시간(KST) 오전 10:00는 UTC 기준으로 오전 01:00입니다.
+    - cron: '0 1 * * *'
+  workflow_dispatch: # 버튼을 눌러서 수동으로도 실행 가능하게 설정
+
+jobs:
+  scrape-and-notify:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20' # 사용 중인 Node 버전
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps chromium
+
+      - name: Run Script
+        env:
+          # GitHub Secrets에 등록한 변수들을 환경변수로 주입
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          TEAMS_WEBHOOK_URL: ${{ secrets.TEAMS_WEBHOOK_URL }}
+        run: main.js
