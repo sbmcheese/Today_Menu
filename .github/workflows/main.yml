@@ -4,7 +4,7 @@ on:
   schedule:
     # 0 1 * * * -> 매일 오전 1시(KST 10시) 실행
     # 0 1 * * 1-5 -> 월,화,수,목,금 오전 1시(KST 10시) 실행
-    - cron: '0 1 * * 1-5'
+    - cron: '17 2 * * 1-5'
   workflow_dispatch:
 
 jobs:
